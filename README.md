@@ -2,11 +2,13 @@ The main purpose of this project was to get a plain table from external database
 
 But then the project grew a little bit. Now it is a Tapestry5/Hibernate web application, recieving data from 1C:Enterprise http services, syncing them with the internal PostgreSQL database. It implements the minimum functionality of the sales manager's workplace: viewing and filtering the stock of goods, adding invoice lines; selecting the company, partner and related contract from the corresponding lists; sending the data entered by the user to the server and receiving back a pdf-file as a printed form of the created invoice.
 
-Folders:
-sql  - here are ddl's for PostgreSQL functions and tables.
-1c   - 1C:Enterprise partial configuration with the implemented http-services modules 
+***
 
-TODO:
+_Folders:_
+* sql  - here are ddl's for PostgreSQL functions and tables.
+* 1c   - 1C:Enterprise partial configuration with the implemented http-services modules 
+
+**TODO:**
 - Create mock data source: both http and database
 - Documenting
 - Refactoring
