@@ -1,0 +1,167 @@
+<html t:type="layout" title="Index 2 | release02"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd" xmlns:p="tapestry:parameter">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+
+<div id="mySidebar" class="sidebar">
+  <a href="#">Document attributes</a>
+    <form t:type="form">
+        <div>
+            <t:zone t:id="companyNameZone" id="companyNameZone"> 
+                <div class="form-group d-flex flex-wrap justify-content-end">
+                    <t:actionlink t:id="openCompanyCatalogLink" id="openCompanyCatalogLink" class="p-1 btn btn-default" zone="^">${message:company-label}</t:actionlink>
+                    <input t:type="textarea" t:id="invoiceOrganization" id="invoiceOrganization" value="invoiceOrganization" style="background-color: papayawhip !important;"/>
+                </div>
+            </t:zone>
+            <t:zone t:id="partnerNameZone" id="partnerNameZone">
+                <div class="form-group d-flex flex-wrap justify-content-end">
+                    <t:actionlink t:id="openPartnerCatalogLink" id="openPartnerCatalogLink" class="p-1 btn btn-default" zone="^">${message:partner-label}</t:actionlink>
+                    <input t:type="textarea" t:id="invoicePartner" id="invoicePartner" value="invoicePartner" zone="^" style="background-color: papayawhip !important;"/>
+                </div>
+            </t:zone>
+            <t:zone t:id="contractNameZone" id="contractNameZone">    
+                <div class="form-group d-flex flex-wrap justify-content-end">
+                    <t:actionlink t:id="openContractCatalogLink" class="p-1 btn btn-default" zone="^">${message:contract-label}</t:actionlink>
+                    <input t:type="textarea" t:id="invoiceContract" id="invoiceContract" value="invoiceContract" style="background-color: papayawhip !important;"/>
+                </div>
+            </t:zone>
+        </div>
+
+    </form>
+
+    <t:form t:id="pdfExampleFormRemote" target="_blank" class="d-flex flex-wrap justify-content-end" style="padding: 8px 8px 8px 24px">
+       <t:submit class="btn btn-primary" value="${message:submit-label}"/>
+    </t:form>
+
+    <t:form t:id="pdfExampleForm" action="reportsForm" target="_blank" class="d-flex justify-content-end" style="padding: 8px 8px 8px 24px">
+        <t:submit class="btn btn-primary" value="${message:run-report-label}" />
+    </t:form>
+    
+    <a href="#">Contact</a>
+
+    <div class="row justify-content-md-center">
+        <t:zone t:id="headerZoneStock_all">
+            <p class="fst-italic">Italic text.</p>
+        </t:zone>
+    </div>
+
+</div> 
+
+<div id="main">
+
+<t:zone t:id="filterZone" id="filterZoneDOM">
+    <form t:type="form" t:id="filterForm" clientValidation="none" zone="^">
+        <div class="mb-3">
+            <t:textfield type="text" placeholder="Products Search filter" t:id="prodFilter"/>
+        </div>
+             <p>
+                <t:submit class="btn btn-primary btn-large" value="Filter records"/>
+                <t:eventlink event="clearFilter" class="btn btn-secondary btn-large" async="true">Clear filter</t:eventlink>
+            </p>
+    </form>
+</t:zone>
+    
+    <t:zone t:id="productsLinesZone" id="productsLinesZoneDOM">
+        <t:form t:id="myFormPlz" class="default-form dt-1" zone="^">
+            <div>
+                <t:grid t:source="productsListFiltered" t:id="gsonListGrid" model="modelInstance" exclude="ID" 
+                row="gridRowInstance" inPlace="true" rowsPerPage="15" t:overrides="propertyOverrides" />
+            </div>
+        </t:form>
+    </t:zone>
+
+
+    <t:zone t:id="invoiceLinesZone" id="invoiceLinesZoneDOM">
+        <t:form t:id="myForm" class="default-form dt-1" zone="^">
+            <div class="row justify-content-md-start">
+                <t:grid t:source="invoiceRows" t:id="invoiceRowsGrid" row="invoiceRow"  inplace="true"/>     
+            </div>
+        </t:form>
+    </t:zone>
+
+</div> 
+
+    <t:zone t:id="modalZone" id="modalZoneDOM">
+       <t:form t:id="modalForm" class="form-horizontal" zone="^">
+            <t:errors globalOnly="true"/>
+             <t:if test="isCurOperation('update')"> 
+                <div class="modal fade" role="dialog" id="modalFormQuantity">
+                    <div class="modal-dialog">       
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <input t:type="textField" t:id="selectedQuantity"/>
+                                <div class="form-group form-horizontal col-sm ">
+                                        <input type="submit" class="btn btn-primary" value="Transfer to Invoice" />
+                                        <t:eventlink event="cancel" class="btn btn-secondary" id="mCancel">Cancel</t:eventlink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t:if> 
+        </t:form>
+    </t:zone>
+    
+                <div class="modal fade" role="dialog" id="modalDialogPartner">
+                    <div class="modal-dialog">       
+                        <div class="modal-content table-partners">
+                            <div class="modal-body row justify-content-md-start">
+                                     <t:form t:id="filterpartnersform" class="form-horizontal" clientValidation="none" t:zone="tablePartnersZone">
+                                          <t:textfield type="text" placeholder="Partners Search filter" t:id="partnersFilter" id="partnersFilterDOM"/>
+                                          <input type="submit" t:type="Submit" class="btn btn-primary" value="Filter partners"/>
+                                          <p> 
+                                            <t:eventlink event="clearPartnersFilter" class="btn btn-secondary" async="true">Clear filter</t:eventlink>
+                                         </p>
+                                    </t:form>
+                                <t:zone t:id="tablePartnersZone" id="tablePartnersZone">
+                                    <div>
+                                        <t:grid t:source="partnersList" row="partnerRowInstance"  id="partnersGrid"
+                                        exclude="partnerCode,partnerName,uuid,hash1c,Empty" inPlace="true" rowsPerPage="7" 
+                                        t:overrides="PartnersPropertyOverrides"/>
+                                    </div>
+                               </t:zone>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="modal fade" role="dialog" id="modalDialogCompany">
+                    <div class="modal-dialog">       
+                        <div class="modal-content table-partners">
+                            <div class="modal-body row justify-content-md-start">
+                                     <t:form t:id="filtercompaniesform" class="form-horizontal" clientValidation="none" t:zone="tableCompaniesZone">
+                                          <t:textfield type="text" placeholder="Companies Search filter" t:id="companiesFilter" id="companiesFilterDOM"/>
+                                          <p> 
+                                            <input type="submit" t:type="Submit" class="btn btn-primary" value="Filter companies"/>
+                                            <t:eventlink event="clearCompaniesFilter" class="btn btn-secondary" async="true">Clear filter</t:eventlink>
+                                         </p>
+                                    </t:form>
+                                <t:zone t:id="tableCompaniesZone" id="tableCompaniesZone">
+                                    <div>
+                                        <t:grid t:source="companiesList" row="companyRowInstance"  id="companiesGrid"
+                                        exclude="code,uuid,hash1c,Empty" inPlace="true" rowsPerPage="7" 
+                                        t:overrides="CompaniesPropertyOverrides"/>
+                                    </div>
+                               </t:zone>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="modal fade" role="dialog" id="modalDialogContracts">
+                    <div class="modal-dialog">       
+                        <div class="modal-content table-partners">
+                            <div class="modal-body row justify-content-md-start">
+                                <t:zone t:id="tableContractsZone" id="tableContractsZone">
+                                    <div>
+                                        <t:grid t:source="contractsList" row="contractsRowInstance"  id="contractsGrid"
+                                        exclude="partner,company,contractCode,uuid,hash1c,Empty" inPlace="true" rowsPerPage="7" 
+                                        t:overrides="ContractsPropertyOverrides"/>
+                                    </div>
+                               </t:zone>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+</html>

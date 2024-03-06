@@ -1,0 +1,38 @@
+<html t:type="layout" title="Index | release02"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+
+<!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="row">
+    <div class="col-6">
+        <p>
+            <img src="${asset:context:images/logo_7add5486.png}" alt="${message:greeting}" title="${message:greeting}" width="174"/>
+        </p>
+        <h1 id="title">${message:greeting}</h1>
+        <p>The current time is: <strong>${currentTime}</strong></p>
+        <p>Current project state: <strong>experimental</strong></p>
+        <p>
+            It is a simple sales manager workstation interface that can retrieve product stock balances 
+            from a database in a simple form, convert them into a pivot table with dynamic stock columns 
+            whose composition depends on the data source. 
+        </p>
+        <p>    
+            Document attributes Company, Partner and linked contract can be selected from the respective lists.
+            Product quantity could be selected by pressing quantity in the respective column.
+         </p>
+         <p>   
+            On pressing Print invoice document attributes are send to the server. Server sends back a pdf file,
+            which can be saved and opened on the client. 
+        </p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-6">
+         <p><t:eventlink event="complete" class="btn btn-primary">Open sales manager workplace &raquo;</t:eventlink></p>
+    </div>
+</div>
+
+</html>

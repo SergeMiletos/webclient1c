@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection properties -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/hibernate-test?escapeSyntaxCallMode="callIfNoReturn"</property>
+        <property name="hibernate.connection.username">hibernateuser</property>
+        <property name="hibernate.connection.password">mio4Zaak</property>
+ 
+        <!-- Other Hibernate properties -->
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.transaction.jta.platform">true</property>  
+
+        <!-- first time it is create and then onwards update -->
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="com.webclient1c.release02.entities.Users1C"/>
+        <mapping class="com.webclient1c.release02.entities.StockRef"/>
+        <mapping class="com.webclient1c.release02.entities.CompaniesRef"/>
+        <mapping class="com.webclient1c.release02.entities.PartnersRef"/>
+        <mapping class="com.webclient1c.release02.entities.PartnersContractsRef"/>
+        <mapping class="com.webclient1c.release02.entities.ProductsStockLevels"/>
+    </session-factory>
+</hibernate-configuration>
+
